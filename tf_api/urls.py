@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from classify_image.views import classify
 # from django.contrib import admin
 
 urlpatterns = [
+    url(r'^classify_image/classify/$', classify),
     # url(r'^admin/', admin.site.urls),
 ]
