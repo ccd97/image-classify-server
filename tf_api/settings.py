@@ -22,9 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6t918%**s8@^(a5kl=y8ir@^goesxbp9#*c46=#hh#dldf8^fu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'deepblue-tensorflow.herokuapp.com',
+]
 
 # Application definition
 
