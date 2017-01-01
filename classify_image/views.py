@@ -15,6 +15,16 @@ TF_LABELS = "{base_path}/TF/labels.txt".format(
     base_path=os.path.abspath(os.path.dirname(__file__))
 )
 
+sess = tf.Session()
+
+with tf.gfile.FastGFile(TF_GRAPH, 'rb') as tf_graph:
+    graph_def = tf.GraphDef()
+    graph_def.ParseFromString(tf_graph.read())
+    _ = tf.import_graph_def(graph_def, name='')
+label_lines = [line.rstrip() for line in tf.gfile.GFile(TF_LABELS)]
+
+softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+
 
 @csrf_exempt
 def classify(request):
@@ -39,23 +49,15 @@ def classify(request):
 
 # noinspection PyUnresolvedReferences
 def tf_classify(image_file):
-    result = []
+    result = list()
 
     image_data = tf.gfile.FastGFile(image_file.name, 'rb').read()
-    label_lines = [line.rstrip() for line in tf.gfile.GFile(TF_LABELS)]
 
-    with tf.gfile.FastGFile(TF_GRAPH, 'rb') as tf_graph:
-        graph_def = tf.GraphDef()
-        graph_def.ParseFromString(tf_graph.read())
-        _ = tf.import_graph_def(graph_def, name='')
-
-    with tf.Session() as sess:
-        softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
-        predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
-        top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
-        for node_id in top_k:
-            human_string = label_lines[node_id]
-            score = predictions[0][node_id]
-            result.append([human_string, score])
+    predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
+    top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
+    for node_id in top_k:
+        human_string = label_lines[node_id]
+        score = predictions[0][node_id]
+        result.append([human_string, score])
 
     return result
