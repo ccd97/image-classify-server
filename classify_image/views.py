@@ -7,23 +7,28 @@ from django.core.files.temp import NamedTemporaryFile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-TF_GRAPH = "{base_path}/TF/graph.pb".format(
+MAX_K = 10
+
+TF_GRAPH = "{base_path}/inception_model/graph.pb".format(
+    base_path=os.path.abspath(os.path.dirname(__file__))
+)
+TF_LABELS = "{base_path}/inception_model/labels.txt".format(
     base_path=os.path.abspath(os.path.dirname(__file__))
 )
 
-TF_LABELS = "{base_path}/TF/labels.txt".format(
-    base_path=os.path.abspath(os.path.dirname(__file__))
-)
 
-sess = tf.Session()
+def load_graph():
+    sess = tf.Session()
+    with tf.gfile.FastGFile(TF_GRAPH, 'rb') as tf_graph:
+        graph_def = tf.GraphDef()
+        graph_def.ParseFromString(tf_graph.read())
+        _ = tf.import_graph_def(graph_def, name='')
+    label_lines = [line.rstrip() for line in tf.gfile.GFile(TF_LABELS)]
+    softmax_tensor = sess.graph.get_tensor_by_name('softmax:0')
+    return sess, softmax_tensor, label_lines
 
-with tf.gfile.FastGFile(TF_GRAPH, 'rb') as tf_graph:
-    graph_def = tf.GraphDef()
-    graph_def.ParseFromString(tf_graph.read())
-    _ = tf.import_graph_def(graph_def, name='')
-label_lines = [line.rstrip() for line in tf.gfile.GFile(TF_LABELS)]
 
-softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+SESS, GRAPH_TENSOR, LABELS = load_graph()
 
 
 @csrf_exempt
@@ -37,7 +42,8 @@ def classify(request):
             image = Image.open(io.BytesIO(image_bytes))
             tmp_file = NamedTemporaryFile()
             image.save(tmp_file, image.format)
-            classify_result = tf_classify(tmp_file)
+            classify_result = tf_classify(tmp_file, int(request.POST.get('k', MAX_K)))
+            tmp_file.close()
 
             if classify_result:
                 data.update({"success": True})
@@ -48,16 +54,17 @@ def classify(request):
 
 
 # noinspection PyUnresolvedReferences
-def tf_classify(image_file):
+def tf_classify(image_file, k=MAX_K):
     result = list()
 
     image_data = tf.gfile.FastGFile(image_file.name, 'rb').read()
 
-    predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
-    top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
+    predictions = SESS.run(GRAPH_TENSOR, {'DecodeJpeg/contents:0': image_data})
+    predictions = predictions[0][:len(LABELS)]
+    top_k = predictions.argsort()[-k:][::-1]
     for node_id in top_k:
-        human_string = label_lines[node_id]
-        score = predictions[0][node_id]
-        result.append([human_string, score])
+        label_string = LABELS[node_id]
+        score = predictions[node_id]
+        result.append([label_string, score])
 
     return result

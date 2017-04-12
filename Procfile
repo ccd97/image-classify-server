@@ -1,1 +1,1 @@
-web: gunicorn tf_api.wsgi --log-file -
+web: gunicorn tf_inception.wsgi --log-file -
