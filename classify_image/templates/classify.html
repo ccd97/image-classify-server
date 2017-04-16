@@ -1,0 +1,103 @@
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>Image Classification</title>
+    <link rel="stylesheet" href="{% static 'css/classify.css' %}" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+    <script src="{% static 'js/classify.js' %}"></script>
+</head>
+
+<body>
+    <div class="container row main-container">
+        <div class="col s12 dd-container">
+            <div class="card dd-card">
+                <div class="card-content black-text file-field">
+                    <div class="drop-container">
+                        <i class="material-icons large upload-icon">cloud_upload</i>
+                        <span class="drag-txt"><b>Drag and drop image here</b></span>
+                        <span class="or-txt">or</span>
+                        <form action="#">
+                            <div class="waves-effect waves-light btn" id="browse-button">
+                                <span>Browse files</span>
+                                <input type="file">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 uf-container">
+            <div class="card uf-card">
+                <img class="card crop" id="img-card" />
+            </div>
+            <form action="#">
+                <div class="waves-effect waves-light btn" id="upload-button">
+                    <span>Upload and Detect Image</span>
+                </div>
+                <div class="waves-effect waves-light btn" id="go-back">
+                    <span>Go Back</span>
+                </div>
+            </form>
+        </div>
+        <div class="col s12 dt-container">
+            <div class="card dt-card">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th style="width:30%;">Category</th>
+                            <th style="width:20%;">Percentage</th>
+                            <th style="width:50%;">Bar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Placeholder</td>
+                            <td>89%</td>
+                            <td>
+                                <div class="w3-light-grey">
+                                    <div class="w3-blue" style="width:89%; height: 20px;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <form action="#">
+                <div class="waves-effect waves-light btn" id="go-start">
+                    <span>Go Back</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <div style="width: 100%; overflow: hidden;">
+                <div style="width: 100px; float: left;">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loading-text">
+                    <h5>Loading...</h5></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ from PIL import Image
 from django.core.files.temp import NamedTemporaryFile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 MAX_K = 10
 
@@ -32,7 +33,7 @@ SESS, GRAPH_TENSOR, LABELS = load_graph()
 
 
 @csrf_exempt
-def classify(request):
+def classify_api(request):
     data = {"success": False}
 
     if request.method == "POST":
@@ -51,6 +52,10 @@ def classify(request):
                     data[res[0]] = '{:f}'.format(res[1])
 
     return JsonResponse(data)
+
+
+def classify(request):
+    return render(request, 'classify.html', {})
 
 
 # noinspection PyUnresolvedReferences
