@@ -35,6 +35,10 @@ body {
   height: inherit;
 }
 
+.dt-card {
+  overflow-y: auto;
+}
+
 #drop-container {
   height: calc(100% - 50px);
   border-style: dashed;
@@ -112,4 +116,53 @@ body {
 .loading-text {
   margin-left: 120px;
   transform: translateY(50%);
+}
+
+.bar {
+  height: 20px;
+  background-color: #687DDB !important;
+}
+
+.progress {
+  height: 20px !important;
+  margin-top: 40px !important;
+  background-color: #F5F5F5 !important;
+}
+
+.progress .determinate {
+  background-color: #687DDB !important;
+}
+
+.stat-card {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E8EAF6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5CAE9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3F51B5;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #1A237E;
 }

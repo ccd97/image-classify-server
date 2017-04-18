@@ -36,68 +36,43 @@
       <div class="card uf-card">
         <img class="card crop" id="img-card" />
       </div>
-      <form action="#">
-        <div class="waves-effect waves-light btn" id="upload-button">
-          <span>Upload and Detect Image</span>
-        </div>
-        <div class="waves-effect waves-light btn" id="go-back">
-          <span>Go Back</span>
-        </div>
-      </form>
+      <div class="waves-effect waves-light btn" id="upload-button">
+        <span>Upload and Detect Image</span>
+      </div>
+      <div class="waves-effect waves-light btn" id="go-back">
+        <span>Go Back</span>
+      </div>
     </div>
     <div class="col s12 dt-container">
-      <div class="card dt-card">
-        <table class="highlight">
-          <thead>
-            <tr>
-              <th style="width:30%;">Category</th>
-              <th style="width:20%;">Percentage</th>
-              <th style="width:50%;">Bar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Placeholder</td>
-              <td>89%</td>
-              <td>
-                <div class="w3-light-grey">
-                  <div class="w3-blue" style="width:89%; height: 20px;"></div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card dt-card" id="stat-table">
       </div>
-      <form action="#">
-        <div class="waves-effect waves-light btn" id="go-start">
-          <span>Go Back</span>
-        </div>
-      </form>
+      <div class="waves-effect waves-light btn" id="go-start">
+        <span>Go Back</span>
+      </div>
     </div>
-  </div>
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <div style="width: 100%; overflow: hidden;">
-        <div style="width: 100px; float: left;">
-          <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div style="width: 100%; overflow: hidden;">
+          <div style="width: 100px; float: left;">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
               </div>
             </div>
           </div>
+          <div class="loading-text">
+            <h5>Loading...</h5></div>
         </div>
-        <div class="loading-text">
-          <h5>Loading...</h5></div>
       </div>
     </div>
-  </div>
 </body>
 
 </html>

@@ -15,23 +15,39 @@ $(document).ready(function() {
   });
 
   $('.modal').modal({
-    dismissible: false
+    dismissible: false,
+    ready: function(modal, trigger) {
+      $.ajax({
+        type: "POST",
+        url: '/classify_image/classify/api/',
+        data: {
+          'image64': $('#img-card').attr('src')
+        },
+        dataType: 'text',
+        success: function(data) {
+          loadStats(data)
+        }
+      }).always(function() {
+        modal.modal('close');
+      });
+    }
   });
 
-  $('#go-back').click(function() {
+  $('#go-back, #go-start').click(function() {
     $('#img-card').removeAttr("src");
+    $('#stat-table').html('');
     switchCard(0);
   });
 
   $('#upload-button').click(function() {
-    $('.modal').modal('open')
+    $('.modal').modal('open');
   });
 });
 
 switchCard = function(cardNo) {
   var containers = [".dd-container", ".uf-container", ".dt-container"];
   var visibleContainer = containers[cardNo];
-  for (i = 0; i < containers.length; i++) {
+  for (var i = 0; i < containers.length; i++) {
     var oz = (containers[i] === visibleContainer) ? '1' : '0';
     $(containers[i]).animate({
       opacity: oz
@@ -49,4 +65,26 @@ loadImage = function(file) {
   }
   reader.readAsDataURL(file);
   switchCard(1);
+}
+
+loadStats = function(jsonData) {
+  switchCard(2);
+  var data = JSON.parse(jsonData);
+  for (key in data) {
+    if (key === "success")
+      continue;
+    var percent = Math.round(parseFloat(data[key]) * 100)
+    var markup = `
+      <div class="card">
+        <div class="card-content black-text stat-card">
+          <span class="card-title capitalize">` + key + `</span>
+          <p style="float: left;">Confidence</p>
+          <p style="float: right;"><b>` + percent + `%</b></p>
+          <div class="progress">
+            <div class="determinate" style="width: ` + percent + `%;"></div>
+          </div>
+        </div>
+      </div>`;
+    $("#stat-table").append(markup);
+  }
 }
