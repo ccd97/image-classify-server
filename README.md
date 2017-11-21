@@ -13,20 +13,20 @@ You can classify using web API by sending a POST request at [http://tf-classify.
 #### Input
 Parameter | Type                           | Description
 --------- | ------------------------------ | -----------------------------------------------------------------------------------
-image     | file                           | Image file that you want to classify. Currently supports JPEG images only
+image     | file                           | Image file that you want to classify.
 image64   | text                           | Image in base64 form that you want to classify. Currently supports JPEG images only
 k         | text<br>(optional, default=10) | Return top-k categories of the results. Must me string in integer format.
 
 Note: you need to send either 'image' or 'image64'
 
 #### Result
-Parameter    | Type      | Description
------------- | --------- | --------------------------------------------
-success      | bool      | Whether classification was sucessfuly or not 
-*category*   | float     | confidence of a particular *category*
+Parameter    | Type                | Description
+------------ | ------------------- | --------------------------------------------
+success      | bool                | Whether classification was sucessfuly or not 
+confidence   | category, float     | pair of category and it's confidence
 
 Note: *category* is not paramater name but string of the category.<br> 
-Example:  {"success": false, "mongoose": 0.87896, "hare": 0.00123 }
+Example:  {"success": true, "confidence": {  "mongoose": 0.87896, "hare": 0.00123 }}
 
 
 ## Using Retrained Inception Model

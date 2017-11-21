@@ -70,14 +70,13 @@ loadImage = function(file) {
 loadStats = function(jsonData) {
   switchCard(2);
   var data = JSON.parse(jsonData);
-  for (key in data) {
-    if (key === "success")
-      continue;
-    var percent = Math.round(parseFloat(data[key]) * 100)
-    var markup = `
+  if (data["success"] == true) {
+    for (category in data['confidence']) {
+      var percent = Math.round(parseFloat(data["confidence"][category]) * 100);
+      var markup = `
       <div class="card">
         <div class="card-content black-text stat-card">
-          <span class="card-title capitalize">` + key + `</span>
+          <span class="card-title capitalize">` + category + `</span>
           <p style="float: left;">Confidence</p>
           <p style="float: right;"><b>` + percent + `%</b></p>
           <div class="progress">
@@ -85,6 +84,7 @@ loadStats = function(jsonData) {
           </div>
         </div>
       </div>`;
-    $("#stat-table").append(markup);
+      $("#stat-table").append(markup);
+    }
   }
 }

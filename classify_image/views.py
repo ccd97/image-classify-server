@@ -52,9 +52,10 @@ def classify_api(request):
         tmp_f.close()
 
         if classify_result:
-            data.update({"success": True})
+            data["success"] = True
+            data["confidence"] = {}
             for res in classify_result:
-                data[res[0]] = '{:f}'.format(res[1])
+                data["confidence"][res[0]] = float(res[1])
 
     return JsonResponse(data)
 
