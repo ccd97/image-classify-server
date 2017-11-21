@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from classify_image.views import classify, classify_api
 from django.views.generic import RedirectView
 # from django.contrib import admin
+from classify_image.views import classify, classify_api
 
 urlpatterns = [
     url(r'^classify_image/classify/api/$', classify_api),

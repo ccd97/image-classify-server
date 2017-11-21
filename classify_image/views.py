@@ -1,9 +1,9 @@
 import io
 import os
 
+from base64 import b64decode
 import tensorflow as tf
 from PIL import Image
-from base64 import b64decode
 from django.core.files.temp import NamedTemporaryFile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -22,7 +22,7 @@ def load_graph():
     with tf.gfile.FastGFile(TF_GRAPH, 'rb') as tf_graph:
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(tf_graph.read())
-        _ = tf.import_graph_def(graph_def, name='')
+        tf.import_graph_def(graph_def, name='')
     label_lines = [line.rstrip() for line in tf.gfile.GFile(TF_LABELS)]
     softmax_tensor = sess.graph.get_tensor_by_name('softmax:0')
     return sess, softmax_tensor, label_lines
