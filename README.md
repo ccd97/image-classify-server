@@ -4,6 +4,16 @@ It's is written in Django along with Tensorflow uing [Google's Inception v3 mode
 The web interface is made using [materializecss](http://materializecss.com/) and [jQuery](https://jquery.com/)<br>
 It is extension of [this](https://github.com/DeepBlueCitzenService/Tensorflow-Server) project.
 
+## Usage
+
+To run the server on localhost:
+
+```
+$ pip3 install -r requirements.txt
+$ python3 manage.py collectstatic
+$ python3 manage.py runserver
+```
+
 ## Web Interface
 The Web Interface can be found at [http://tf-classify.herokuapp.com](http://tf-classify.herokuapp.com)
 
