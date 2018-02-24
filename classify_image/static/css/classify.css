@@ -1,5 +1,5 @@
 body {
-  background-color: #687DDB;
+  background-color: #34495E;
   font-family: 'Noto Sans', sans-serif;
   padding-top: 5%;
   padding-bottom: 10%;
@@ -42,12 +42,12 @@ body {
 #drop-container {
   height: calc(100% - 50px);
   border-style: dashed;
-  border-color: #687DDB;
+  border-color: #34495E;
   border-radius: 4px;
 }
 
 .upload-icon {
-  color: #687DDB;
+  color: #34495E;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -73,7 +73,7 @@ body {
 }
 
 #browse-container {
-  background-color: #687DDB;
+  background-color: #34495E;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -82,20 +82,20 @@ body {
 }
 
 #upload-button {
-  background-color: #FF4081;
+  background-color: #1ABC9C;
   position: absolute;
   width: calc(50% - 20px);
 }
 
 #go-back {
-  background-color: #FF4081;
+  background-color: #1ABC9C;
   position: absolute;
   width: calc(50% - 20px);
   transform: translate(calc(100% + 20px), 0%);
 }
 
 #go-start {
-  background-color: #FF4081;
+  background-color: #1ABC9C;
   position: absolute;
   width: calc(100% - 20px);
 }
@@ -120,7 +120,7 @@ body {
 
 .bar {
   height: 20px;
-  background-color: #687DDB !important;
+  background-color: #34495E !important;
 }
 
 .progress {
@@ -130,7 +130,7 @@ body {
 }
 
 .progress .determinate {
-  background-color: #687DDB !important;
+  background-color: #34495E !important;
 }
 
 .stat-card {
@@ -152,17 +152,17 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #E8EAF6;
+  background: #EAECEE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C5CAE9;
+  background: #85919E;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3F51B5;
+  background: #5C6D7E;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #1A237E;
+  background: #485B6E;
 }
